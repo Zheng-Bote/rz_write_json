@@ -140,7 +140,6 @@ bla bla ... with a little help from my friends
 ## folder structure
 
 <!-- readme-tree start -->
-
 ```
 .
 ├── .github
@@ -162,17 +161,28 @@ bla bla ... with a little help from my friends
 │       ├── repo-create_doctoc.yml_
 │       ├── repo-create_doctoc_md.yml
 │       └── repo-create_tree_readme.yml
+├── .gitignore
 ├── LICENSE
-├── LICENSE_Apache-2
-├── LICENSE_GPL-2
-├── LICENSE_GPL-3
-├── LICENSE_MIT
 ├── README.md
+├── src
+│   ├── CMakeLists.txt
+│   ├── CMakeLists.txt.user
+│   ├── configure
+│   │   ├── CMakeLists.txt
+│   │   └── rz_config.hpp.in
+│   ├── includes
+│   │   ├── rz_config.hpp
+│   │   ├── rz_photo-gallery_plugins.hpp
+│   │   └── rz_write_json.hpp
+│   ├── rz_write_json.cpp
+│   ├── schemas
+│   │   └── rz_write_json.schema.json
+│   ├── test_read.cpp
+│   └── test_write.cpp
 └── tree.bak
 
-6 directories, 21 files
+10 directories, 29 files
 ```
-
 <!-- readme-tree end -->
 
 <p align="right">(<a href="#top">back to top</a>)</p>
