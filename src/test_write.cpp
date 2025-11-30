@@ -1,8 +1,8 @@
 /**
  * @file test_write.cpp
  * @author ZHENG Robert (robert.hase-zheng.net)
- * @brief testing the FlatBuffers plugin (write bin)
- * @version 0.1.0
+ * @brief testing the Output plugin (write bin)
+ * @version 0.2.0
  * @date 2025-11-25
  *
  * @copyright Copyright (c) 2025 ZHENG Robert
@@ -23,6 +23,9 @@
 #include "includes/rz_config.hpp"
 #include "includes/rz_photo-gallery_plugins.hpp"
 #include <print>
+
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 void exit_handler();
 void terminate_handler();
@@ -52,12 +55,12 @@ int main()
     getDetailedInfo();
 
     // QT Creator
-    // loader.setFileName("/home/zb_bamboo/DEV/__NEW__/CPP/Qt_Plugins/plugins/rz_write_flatbuffer/"
-    //                    "build/Desktop_Qt_6_10_0-Debug/librz_write_flatbuffers");
+    loader.setFileName("/home/zb_bamboo/DEV/__NEW__/CPP/Qt_Plugins/plugins/rz_write_json/build/"
+                       "Desktop_Qt_6_10_0-Debug/librz_write_json");
 
     // VSC
-    loader.setFileName("/home/zb_bamboo/DEV/__NEW__/CPP/Qt_Plugins/plugins/rz_write_flatbuffer/"
-                       "build/librz_write_flatbuffers");
+    // loader.setFileName("/home/zb_bamboo/DEV/__NEW__/CPP/Qt_Plugins/plugins/rz_write_flatbuffer/"
+    //                   "build/librz_write_flatbuffers");
 
     if (!loader.load())
     {
@@ -117,9 +120,39 @@ int main()
     std::tie(oknok, msg) = plugin->setQstring(imgStruct.fileAbolutePath + "/" + imgStruct.fileName,
                                               "imgStruct");
 
-    // write FlatBuffer to the given folder (<fileBasename>.bin)
-    plugin->writeFile("/home/zb_bamboo/DEV/__NEW__/CPP/Qt_Plugins/plugins/rz_write_flatbuffer/"
-                      "build/FlatBuffers/test/ImageBins");
+    // JSON output format
+    std::tie(oknok, msg) = plugin->setQstring("", "JSON");
+    // write data to the given folder (<fileBasename>.json)
+    plugin->writeFile("/home/zb_bamboo/DEV/__NEW__/CPP/Qt_Plugins/plugins/rz_write_json/build/"
+                      "Desktop_Qt_6_10_0-Debug/Output/JSON");
+
+    // CBOR output format
+    std::tie(oknok, msg) = plugin->setQstring("", "CBOR");
+    // write data to the given folder (<fileBasename>.cbor)
+    plugin->writeFile("/home/zb_bamboo/DEV/__NEW__/CPP/Qt_Plugins/plugins/rz_write_json/build/"
+                      "Desktop_Qt_6_10_0-Debug/Output/CBOR");
+    // MSGPACK output format
+    std::tie(oknok, msg) = plugin->setQstring("", "MSGPACK");
+    // write data to the given folder (<fileBasename>.msgpack)
+    plugin->writeFile("/home/zb_bamboo/DEV/__NEW__/CPP/Qt_Plugins/plugins/rz_write_json/build/"
+                      "Desktop_Qt_6_10_0-Debug/Output/MSGPACK");
+
+    // UBJSON output format
+    std::tie(oknok, msg) = plugin->setQstring("", "UBJSON");
+    // write data to the given folder (<fileBasename>.ubjson)
+    plugin->writeFile("/home/zb_bamboo/DEV/__NEW__/CPP/Qt_Plugins/plugins/rz_write_json/build/"
+                      "Desktop_Qt_6_10_0-Debug/Output/UBJSON");
+
+    // BJDATA output format
+    std::tie(oknok, msg) = plugin->setQstring("", "BJDATA");
+    // write data to the given folder (<fileBasename>.bjdata)
+    plugin->writeFile("/home/zb_bamboo/DEV/__NEW__/CPP/Qt_Plugins/plugins/rz_write_json/build/"
+                      "Desktop_Qt_6_10_0-Debug/Output/BJDATA");
+    // BSON output format
+    std::tie(oknok, msg) = plugin->setQstring("", "BSON");
+    // write data to the given folder (<fileBasename>.bson)
+    plugin->writeFile("/home/zb_bamboo/DEV/__NEW__/CPP/Qt_Plugins/plugins/rz_write_json/build/"
+                      "Desktop_Qt_6_10_0-Debug/Output/BSON");
 
     return EXIT_SUCCESS;
 }
@@ -161,7 +194,7 @@ void getDetailedInfo()
     std::cout << std::left << std::setfill('.') << std::setw(width)
               << "Description:" << PROJECT_DESCRIPTION << std::endl;
     std::cout << std::left << std::setfill('.') << std::setw(width)
-              << "Technical:" << CMAKE_CXX_COMPILER << " " << CMAKE_CXX_STANDARD << std::endl;
+              << "Technical:" << CMAKE_CXX_COMPILER << " " << CMAKE_CXX_STANDARD << " QT " << CMAKE_QT_VERSION << std::endl;
     std::cout << std::left << std::setfill('.') << std::setw(width) << "Author:" << PROG_AUTHOR
               << std::endl;
     std::cout << std::left << std::setfill('.') << std::setw(width)

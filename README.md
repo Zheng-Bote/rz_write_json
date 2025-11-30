@@ -1,7 +1,7 @@
 <div id="top" align="center">
 <h1>rz_write_json</h1>
 
-<p>Plugin for qt_files_photo-gallery to export Metadata to JSON</p>
+<p>Plugin for qt_files_photo-gallery to export Metadata to BSON, CBOR, MessagePack, UBJSON, and BJData formats</p>
 
 [Report Issue](https://github.com/Zheng-Bote/rz_write_json/issues) [Request Feature](https://github.com/Zheng-Bote/rz_write_json/pulls)
 
@@ -58,7 +58,7 @@
 ![QT](https://img.shields.io/badge/Community-6-41CD52?logo=qt)
 ![CXX](https://img.shields.io/badge/C++-23-blue?logo=cplusplus)
 
-Plugin for qt_files_photo-gallery to export Metadata to JSON.
+Plugin for qt_files_photo-gallery to export Metadata to BSON, CBOR, MessagePack, UBJSON, and BJData formats
 
 ### Features
 

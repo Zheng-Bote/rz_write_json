@@ -20,71 +20,7 @@
 #include <QDebug>
 #include <iostream>
 
-#include <flatbuffers/flatbuffers.h>
-#include "includes/rz_write_flatbuffers_generated.h"
-
-using namespace Image::Metadatas;
-
-static QString fbStr(const flatbuffers::String *s)
-{
-    if (!s)
-        return "";
-    return QString::fromUtf8(s->c_str());
-}
-
-bool loadPictureFlatbuffer(
-    const QString &filename,
-    QHash<QString, QString> &pictureData,
-    QHash<QString, QString> &exifData,
-    QHash<QString, QString> &iptcData,
-    QHash<QString, QString> &xmpData)
-{
-
-    QFile f(filename);
-    if (!f.open(QIODevice::ReadOnly))
-    {
-        std::cerr << "Kann Datei nicht öffnen!\n";
-        return false;
-    }
-
-    QByteArray bytes = f.readAll();
-    f.close();
-
-    // -------------------------------
-    // Prüfen ob gültiger FlatBuffer
-    // -------------------------------
-    if (!flatbuffers::Verifier(
-             reinterpret_cast<const uint8_t *>(bytes.data()), bytes.size())
-             .VerifyBuffer<Picture>(nullptr))
-    {
-        std::cerr << "Ungültiger FlatBuffer!\n";
-        return false;
-    }
-
-    // -------------------------------
-    // GetRoot
-    // -------------------------------
-    auto pic = flatbuffers::GetRoot<Picture>(bytes.data());
-    if (!pic)
-    {
-        std::cerr << "Picture konnte nicht gelesen werden!\n";
-        return false;
-    }
-
-    // -------------------------------
-    // Picture → QHash
-    // -------------------------------
-    pictureData["file_name"] = fbStr(pic->file_name());
-    pictureData["filesize"] = QString::number(pic->filesize());
-    pictureData["filewidth"] = QString::number(pic->filewidth());
-    pictureData["fileheight"] = QString::number(pic->fileheight());
-    pictureData["filepath"] = fbStr(pic->filepath());
-    pictureData["filedatetime"] = QString::number(pic->filedatetime());
-    pictureData["access_groups"] = fbStr(pic->access_group());
-
-    // -------------------------------
-    // Exif → QHash
-    // -------------------------------
+/*
     if (auto ex = pic->exifdata())
     {
         exifData["file_name"] = fbStr(ex->file_name());
@@ -146,8 +82,7 @@ bool loadPictureFlatbuffer(
         xmpData["securityclassification"] = fbStr(xmp->securityclassification());
     }
 
-    return true;
-}
+*/
 
 int main()
 {
@@ -155,12 +90,4 @@ int main()
     QHash<QString, QString> exifHash;
     QHash<QString, QString> iptcHash;
     QHash<QString, QString> xmpHash;
-
-    if (loadPictureFlatbuffer("2014-04-18_203353.bin", pictureHash, exifHash, iptcHash, xmpHash))
-    {
-        qDebug() << "Picture Name:" << pictureHash["file_name"];
-        qDebug() << "Exif Description: " << exifHash["imagedescription"];
-        qDebug() << "IPTC Object: " << iptcHash["objectname"];
-        qDebug() << "XMP Title:" << xmpHash["title"];
-    }
 }

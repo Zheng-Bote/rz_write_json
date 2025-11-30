@@ -4,9 +4,9 @@
  * @brief configuration
  * @version 2.0.0
  * @date 2025-11-15
- * 
+ *
  * @copyright Copyright (c) 2025 ZHENG Robert
- * 
+ *
  */
 #pragma once
 
@@ -14,14 +14,14 @@
 #include <string>
 
 static const std::string PROJECT_NAME = "rz_write_json";
-static const std::string PROG_LONGNAME = "write JSON";
-static const std::string PROJECT_DESCRIPTION = "Plugin to export Metadata to JSON";
+static const std::string PROG_LONGNAME = "write Binary formats";
+static const std::string PROJECT_DESCRIPTION = "Plugin to export Metadata to BSON, CBOR, MessagePack, UBJSON, and BJData formats";
 
 static const std::string PROJECT_EXECUTABLE = "rz_write_json";
 
-static const std::string PROJECT_VERSION = "0.1.0";
+static const std::string PROJECT_VERSION = "0.2.0";
 static const std::int32_t PROJECT_VERSION_MAJOR{0};
-static const std::int32_t PROJECT_VERSION_MINOR{1};
+static const std::int32_t PROJECT_VERSION_MINOR{2};
 static const std::int32_t PROJECT_VERSION_PATCH{0};
 
 static const std::string PROJECT_HOMEPAGE_URL = "https://github.com/Zheng-Bote/rz_write_json";
@@ -32,3 +32,4 @@ static const std::string PROG_ORGANIZATION_DOMAIN = "net.hase-zheng";
 
 static const std::string CMAKE_CXX_STANDARD = "c++23";
 static const std::string CMAKE_CXX_COMPILER = "Clang 20.1.8";
+static const std::string CMAKE_QT_VERSION = "6.10.0";

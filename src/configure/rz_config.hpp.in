@@ -4,9 +4,9 @@
  * @brief configuration
  * @version 2.0.0
  * @date 2025-11-15
- * 
+ *
  * @copyright Copyright (c) 2025 ZHENG Robert
- * 
+ *
  */
 #pragma once
 
@@ -32,3 +32,4 @@ static const std::string PROG_ORGANIZATION_DOMAIN = "${PROG_ORGANIZATION_DOMAIN}
 
 static const std::string CMAKE_CXX_STANDARD = "c++${CMAKE_CXX_STANDARD}";
 static const std::string CMAKE_CXX_COMPILER = "${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}";
+static const std::string CMAKE_QT_VERSION = "${CMAKE_QTV}";

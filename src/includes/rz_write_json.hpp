@@ -19,7 +19,6 @@
 #include <QRegularExpression>
 #include <QtPlugin>
 
-
 #include "rz_photo-gallery_plugins.hpp"
 
 /**
@@ -33,13 +32,54 @@ class Rz_writeJson : public QObject, public Plugin
   Q_INTERFACES(Plugin);
 
 public:
-    explicit Rz_writeJson(QObject *parent = nullptr);
-    ~Rz_writeJson() = default;
+  explicit Rz_writeJson(QObject *parent = nullptr);
+  ~Rz_writeJson() = default;
 
 private:
   bool oknok{false};
   std::string msg{"blank"};
   QString debugMsg{"blank"};
+
+  QString outputExtension{".json"};
+  int outputFormatFlag{0};
+
+  // Output format flags
+  enum class OutputFormat
+  {
+    JSON,
+    BSON,
+    CBOR,
+    MSGPACK,
+    UBJSON,
+    BJDATA
+  };
+  struct OutputFormatInfo
+  {
+    QHash<OutputFormat, QString> extensions{
+        {OutputFormat::JSON, ".json"},
+        {OutputFormat::BSON, ".bson"},
+        {OutputFormat::CBOR, ".cbor"},
+        {OutputFormat::MSGPACK, ".msgpack"},
+        {OutputFormat::UBJSON, ".ubjson"},
+        {OutputFormat::BJDATA, ".bjdata"}};
+
+    QString extension(OutputFormat fmt) const
+    {
+      return extensions.value(fmt);
+    }
+  };
+  OutputFormatInfo outputFormats;
+  std::optional<OutputFormat> formatFromExtension(const QString &ext);
+
+  const QHash<QString, OutputFormat> stringToOutputFormat{
+      {"JSON", OutputFormat::JSON},
+      {"BSON", OutputFormat::BSON},
+      {"CBOR", OutputFormat::CBOR},
+      {"MSGPACK", OutputFormat::MSGPACK},
+      {"UBJSON", OutputFormat::UBJSON},
+      {"BJDATA", OutputFormat::BJDATA}};
+  std::optional<OutputFormat> enumFromString(const QString &type);
+  QString extensionFromEnum(OutputFormat fmt);
 
   struct imageStruct
   {
@@ -50,7 +90,6 @@ private:
     QString homePath{""};        // /home/zb_bamboo
   };
   imageStruct imgStruct;
-
   void setImgStruct(const imageStruct &imgStructData);
 
   QMap<QString, QString> qMap;

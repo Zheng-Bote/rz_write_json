@@ -77,12 +77,14 @@ public:
     virtual std::tuple<bool, std::string> doClose(const QString &type = "") = 0;
     virtual std::tuple<bool, std::string> doRun(const QString &type = "") = 0;
 
+    // virtual std::tuple<bool, std::string> checkEnum(const QString &string,
+    //                                                const QString &type = "") = 0;
+
     virtual std::tuple<bool, std::string> setQstring(const QString &string, const QString &type = "") = 0;
     virtual QString getQstring(const QString &type = "") = 0;
 
     virtual std::tuple<bool, std::string> setQList(const QList<QString> &stringList,
-                                                   const QString &type = "")
-        = 0;
+                                                   const QString &type = "") = 0;
     virtual QList<QString> getQList(const QString &type = "") = 0;
 
     virtual std::tuple<bool, std::string> setQMap(const QMap<QString, QString> &setQmap,
