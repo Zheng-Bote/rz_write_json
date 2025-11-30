@@ -31,7 +31,8 @@ QString Rz_writeJson::extensionFromEnum(OutputFormat fmt)
 
 std::optional<Rz_writeJson::OutputFormat> Rz_writeJson::enumFromString(const QString &type)
 {
-    if (stringToOutputFormat.contains(type.toUpper())) {
+    if (stringToOutputFormat.contains(type.toUpper()))
+    {
         return stringToOutputFormat.value(type.toUpper());
     }
     return std::nullopt;
@@ -251,64 +252,45 @@ std::tuple<bool, std::string> Rz_writeJson::writeFile(const QString &pathToBinDi
     j["IPTC"] = j_iptc;
     j["XMP"] = j_xmp;
 
-    QTextStream out(&fileOut);
+    // QTextStream out(&fileOut);
+    std::vector<uint8_t> data;
+    std::string str;
 
     switch (outputFormatFlag)
     {
     case static_cast<int>(OutputFormat::JSON):
-        out << j.dump().c_str() << "\n";
+        str = j.dump(); // Optional: j.dump(4) für Pretty Print
+        fileOut.write(str.data(), str.size());
+        fileOut.write("\n", 1);
         break;
     case static_cast<int>(OutputFormat::CBOR):
-    {
-        std::vector<uint8_t> v = json::to_cbor(j);
-        for (const auto &byte : v)
-        {
-            out << byte;
-        }
+        data = json::to_cbor(j);
         break;
-    }
     case static_cast<int>(OutputFormat::MSGPACK):
-    {
-        std::vector<uint8_t> v = json::to_msgpack(j);
-        for (const auto &byte : v)
-        {
-            out << byte;
-        }
+        data = json::to_msgpack(j);
         break;
-    }
     case static_cast<int>(OutputFormat::UBJSON):
-    {
-        std::vector<uint8_t> v = json::to_ubjson(j);
-        for (const auto &byte : v)
-        {
-            out << byte;
-        }
+        data = json::to_ubjson(j);
         break;
-    }
     case static_cast<int>(OutputFormat::BSON):
-    {
-        std::vector<uint8_t> v = json::to_bson(j);
-        for (const auto &byte : v)
-        {
-            out << byte;
-        }
+        data = json::to_bson(j);
         break;
-    }
     case static_cast<int>(OutputFormat::BJDATA):
-    {
-        std::vector<uint8_t> v = json::to_bjdata(j);
-        for (const auto &byte : v)
-        {
-            out << byte;
-        }
+        data = json::to_bjdata(j);
         break;
-    }
     default:
-        out << j.dump().c_str() << "\n";
+        // Fallback JSON
+        str = j.dump();
+        fileOut.write(str.data(), str.size());
         break;
     }
 
-    fileOut.flush();
+    // Blockweises Schreiben der Binärdaten (massiver Speedup)
+    if (!data.empty())
+    {
+        fileOut.write(reinterpret_cast<const char *>(data.data()), data.size());
+    }
+
     fileOut.close();
 
     return std::make_tuple(true,
@@ -356,7 +338,8 @@ std::tuple<bool, std::string> Rz_writeJson::setQstring(const QString &string, co
     }
 
     auto fmt = enumFromString(type);
-    if (fmt) {
+    if (fmt)
+    {
         outputFormatFlag << static_cast<int>(*fmt);
         outputExtension = extensionFromEnum(*fmt);
 
@@ -366,7 +349,9 @@ std::tuple<bool, std::string> Rz_writeJson::setQstring(const QString &string, co
                                            __FUNCTION__,
                                            __LINE__,
                                            outputFormatFlag));
-    } else {
+    }
+    else
+    {
         outputFormatFlag = -0;
         outputExtension = ".unknown";
         return std::make_tuple(false,
@@ -378,7 +363,7 @@ std::tuple<bool, std::string> Rz_writeJson::setQstring(const QString &string, co
     }
 
     /*
-    
+
     auto fmt = formatFromExtension(type);
 
     if (fmt.has_value())

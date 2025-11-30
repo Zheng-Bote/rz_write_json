@@ -1,3 +1,4 @@
 .vscode/**
 build/**
 
+src/CMakeLists.txt.user

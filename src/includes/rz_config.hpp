@@ -19,10 +19,10 @@ static const std::string PROJECT_DESCRIPTION = "Plugin to export Metadata to BSO
 
 static const std::string PROJECT_EXECUTABLE = "rz_write_json";
 
-static const std::string PROJECT_VERSION = "0.2.0";
+static const std::string PROJECT_VERSION = "0.2.1";
 static const std::int32_t PROJECT_VERSION_MAJOR{0};
 static const std::int32_t PROJECT_VERSION_MINOR{2};
-static const std::int32_t PROJECT_VERSION_PATCH{0};
+static const std::int32_t PROJECT_VERSION_PATCH{1};
 
 static const std::string PROJECT_HOMEPAGE_URL = "https://github.com/Zheng-Bote/rz_write_json";
 static const std::string PROG_AUTHOR = "ZHENG Bote";

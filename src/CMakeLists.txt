@@ -10,8 +10,9 @@ cmake_minimum_required(VERSION 3.23)
 
 project(
   rz_write_json
-  VERSION 0.2.0
-  DESCRIPTION "Plugin to export Metadata to BSON, CBOR, MessagePack, UBJSON, and BJData formats"
+  VERSION 0.2.1
+  DESCRIPTION
+    "Plugin to export Metadata to BSON, CBOR, MessagePack, UBJSON, and BJData formats"
   HOMEPAGE_URL "https://github.com/Zheng-Bote/rz_write_json"
   LANGUAGES CXX)
 
